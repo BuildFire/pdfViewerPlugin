@@ -6,7 +6,11 @@
 </head>
 <body>
 <div style="text-align: center;vertical-align: middle; height: 100%">
-    <h2 style="margin-top: 50%; opacity: .25;">.pdf</h2>
+    <h3 id ="h" style="margin-top: 50%; opacity: .25;">.pdf</h3>
+    <div id="d" style="display: none;">
+        <h2>Success!</h2>
+        <p>Your PDF has been linked and will show in your app. To view your pdf now click <a id="a">here</a></p>
+    </div>
 </div>
 <script>
         buildfire.spinner.show();
@@ -17,8 +21,18 @@
                 var content = result.data.content;
                 if (content && content.url) {
                     buildfire.getContext(function (err, context) {
-                        if (context.device.platform == "web")
-                            buildfire.navigation.openWindow(content.url, "_blank");
+                        if (context.device.platform == "web") {
+                            var d =document.getElementById("d");
+                            if(d && content.url) {
+                                d.style.display='';
+                                var a =document.getElementById("a");
+                                a.onclick = function () {
+                                   buildfire.navigation.openWindow(content.url, "_system");
+                                    return false;
+                                }
+                            }
+
+                        }
                         else {
                             if (content.openInApp) {
                                 if(context.device.platform.toLowerCase() == "android")
@@ -28,7 +42,7 @@
                             }
                             else
                                 buildfire.navigation.openWindow(content.url, "_system");
-                            
+
                             buildfire.navigation.goBack();
                         }
                         
@@ -49,11 +63,6 @@
                 dataLoadedHandler(result);
             }
         });
-
-        /**
-         * when a refresh is triggered get reload data
-         */
-        buildfire.datastore.onRefresh(loadData);
 
         buildfire.datastore.onUpdate(function (result) {
             dataLoadedHandler(result);
