@@ -20,8 +20,12 @@
                         if (context.device.platform == "web")
                             buildfire.navigation.openWindow(content.url, "_blank");
                         else {
-                            if (content.openInApp)
-                                buildfire.navigation.openWindow(content.url, "_blank");
+                            if (content.openInApp) {
+                                if(context.device.platform.toLowerCase() == "android")
+                                    buildfire.navigation.openWindow("https://docs.google.com/viewer?url=" + encodeURIComponent(content.url) , "_blank");
+                                else
+                                    buildfire.navigation.openWindow(content.url , "_blank");
+                            }
                             else
                                 buildfire.navigation.openWindow(content.url, "_system");
                             
