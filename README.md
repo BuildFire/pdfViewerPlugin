@@ -1,1 +1,2 @@
-# Web View  ![](https://api.travis-ci.org/BuildFire/webviewPlugin.svg)
+# PDF Viewer  ![](https://api.travis-ci.org/BuildFire/pdfViewerPlugin.svg)
+Allows you view PDF's in your BuildFire app
