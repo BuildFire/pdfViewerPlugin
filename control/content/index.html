@@ -71,13 +71,13 @@
                     return;
                 }
 
-                if (result && result.data && !angular.equals({}, result.data)) {
+                if (result && result.data && !angular.equals({}, result.data) && result.id) {
                     $scope.data = result.data;
                     $scope.id = result.id;
                 } else {
                     $scope.data = {
                         content: {
-                            url: "",
+                            url: "https://www.polyu.edu.hk/iaee/files/pdf-sample.pdf",
                             openInApp: true
                         }
                     };

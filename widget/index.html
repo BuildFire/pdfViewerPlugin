@@ -17,7 +17,7 @@
 
         function dataLoadedHandler(result) {
 
-            if (result && result.data) {
+            if (result && result.data && result.id) {
                 var content = result.data.content;
                 if (content && content.url) {
                     buildfire.getContext(function (err, context) {
@@ -31,7 +31,6 @@
                                     return false;
                                 }
                             }
-
                         }
                         else {
                             if (content.openInApp) {
@@ -49,6 +48,14 @@
                         buildfire.spinner.hide();
                     });
                 }
+            } else{
+              var d =document.getElementById("d");
+              d.style.display='';
+              var a =document.getElementById("a");
+              a.onclick = function () {
+                buildfire.navigation.openWindow("https://docs.google.com/viewer?url=" + encodeURIComponent("https://www.polyu.edu.hk/iaee/files/pdf-sample.pdf"), "_system");
+                return false;
+              }
             }
         }
 
