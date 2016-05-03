@@ -15,17 +15,15 @@
       ng-show="datastoreInitialized">
 <div ng-form="frmMain">
 
-  <div class="item clearfix row margi
-		n-bottom-fifteen">
+  <div class="item clearfix row margin-bottom-fifteen">
     <div class="labels col-md-3 padding-right-zero pull-left">
       <span>URL to your PDF</span>
     </div>
     <div class="main col-md-9 pull-right clearfix">
       <div class="col-md-9 pull-left padding-left-zero">
-        <input id="url" name="url" type="text" class="form-control"
-               ng-model="data.content.url" ng-change="clearUrl()"
-               required
-               pattern="[-a-zA-Z0-9@:%_\+.~#?&amp;//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?!?\/?\w\/?&amp;//=]*)?">
+        <input id="url" name="url" type="url" class="form-control"
+               ng-model="data.content.url"
+               required>
       </div>
       <div class="col-md-3 pull-right padding-zero">
         <button class="btn btn-success stretch" ng-click="validateUrl()"
@@ -102,6 +100,9 @@
         } else {
           dataChanged = true;
         }
+        if (dataChanged && newObj.content && !newObj.content.url) {
+          $scope.clearUrl();
+        }
       }, true);
 
       if (!$scope.$$phase && !$scope.$root.$$phase) {
@@ -155,18 +156,16 @@
     };
 
     $scope.clearUrl = function () {
-      if (!$scope.data.content.url) {
-        $scope.data.content.url = null;
-        var data = $scope.data;
-        buildfire.datastore.save(data, function (err, result) {
-          if (err || !result) {
-            $log.error('Error saving the widget details: ', err);
-          }
-          else {
-            $log.info('Widget details saved');
-          }
-        });
-      }
+      $scope.data.content.url = undefined;
+      var data = $scope.data;
+      buildfire.datastore.save(data, function (err, result) {
+        if (err || !result) {
+          $log.error('Error saving the widget details: ', err);
+        }
+        else {
+          $log.info('Widget details saved');
+        }
+      });
     };
 
     $scope.openMethodChanged = function () {
