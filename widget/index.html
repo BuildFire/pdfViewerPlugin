@@ -15,9 +15,8 @@
 <script>
         buildfire.spinner.show();
 
-        function dataLoadedHandler(result) {
-
-            if (result && result.data) {
+        function dataLoadedHandler(result, fromUpdate) {
+            if (result && result.data && (result.id || fromUpdate)) {
                 var content = result.data.content;
                 if (content && content.url) {
                     buildfire.getContext(function (err, context) {
@@ -31,7 +30,6 @@
                                     return false;
                                 }
                             }
-
                         }
                         else {
                             if (content.openInApp) {
@@ -45,10 +43,22 @@
 
                             buildfire.navigation.goBack();
                         }
-                        
+
                         buildfire.spinner.hide();
                     });
                 }
+              else{
+                  var d =document.getElementById("d");
+                  d.style.display='none';
+                }
+            } else{
+              var d =document.getElementById("d");
+              d.style.display='';
+              var a =document.getElementById("a");
+              a.onclick = function () {
+                buildfire.navigation.openWindow("https://docs.google.com/viewer?url=" + encodeURIComponent("https://www.polyu.edu.hk/iaee/files/pdf-sample.pdf"), "_system");
+                return false;
+              }
             }
         }
 
@@ -65,9 +75,9 @@
         });
 
         buildfire.datastore.onUpdate(function (result) {
-            dataLoadedHandler(result);
+            dataLoadedHandler(result, true);
         });
-   
+
 </script>
 </body>
 </html>
