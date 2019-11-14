@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install",
-    "test": "./node_modules/.bin/karma start karma.conf.js"
+    "test": "./node_modules/.bin/karma start karma.conf.js",
+    "build": "cd .. && rm -rf pdfViewerPlugin.zip && zip -r pdfViewerPlugin.zip pdfViewerPlugin/ -x \\*node_modules\\* \\*.git\\* \\*test\\* \\*.idea\\*"
   },
   "dependencies": {
     "bower": "^1.5.3",
