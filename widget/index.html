@@ -18,6 +18,7 @@
         function dataLoadedHandler(result, fromUpdate) {
             if (result && result.data && (result.id || fromUpdate)) {
                 var content = result.data.content;
+                var isHosted = content.url.includes('drive.google.com') || content.url.includes('dropbox.com');
                 if (content && content.url) {
                     buildfire.getContext(function (err, context) {
                         if (context.device.platform == "web") {
@@ -26,20 +27,30 @@
                                 d.style.display='';
                                 var a =document.getElementById("a");
                                 a.onclick = function () {
-                                   buildfire.navigation.openWindow("https://docs.google.com/viewer?url=" + encodeURIComponent(content.url), "_system");
+                                    if(isHosted) {
+                                        buildfire.navigation.openWindow(content.url, "_blank");
+                                    } else {
+                                        buildfire.navigation.openWindow("https://docs.google.com/viewer?url=" + encodeURIComponent(content.url) , "_blank");
+                                    }
                                     return false;
                                 }
                             }
                         }
                         else {
                             if (content.openInApp) {
-                                if(context.device.platform.toLowerCase() == "android")
-                                    buildfire.navigation.openWindow("https://docs.google.com/viewer?url=" + encodeURIComponent(content.url) , "_blank");
-                                else
-                                    buildfire.navigation.openWindow(content.url , "_blank");
+                                if(context.device.platform.toLowerCase() == "android") {
+                                    if(isHosted) { 
+                                        buildfire.navigation.openWindow(content.url, "_blank");
+                                    } else {
+                                        buildfire.navigation.openWindow("https://docs.google.com/viewer?url=" + encodeURIComponent(content.url) , "_blank");
+                                    }
+                                } else {
+                                    buildfire.navigation.openWindow(content.url, "_blank");
+                                }
                             }
-                            else
+                            else {
                                 buildfire.navigation.openWindow(content.url, "_system");
+                            }
 
                             buildfire.navigation.goBack();
                         }
