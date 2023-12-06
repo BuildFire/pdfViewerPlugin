@@ -18,7 +18,19 @@
         function dataLoadedHandler(result, fromUpdate) {
             if (result && result.data && (result.id || fromUpdate)) {
                 var content = result.data.content;
-                var isHosted = content.url.includes('drive.google.com') || content.url.includes('dropbox.com') || content.url.includes('documentcloud.adobe');
+                // array of providers which they processing their own PDF viewer 
+                const hostedProviders = ['drive.google.com', 'dropbox.com', 'documentcloud.adobe', 'acrobat.adobe.com'];
+                /*
+                - isHosted is a flag that helps the app distinguish between hosted and non-hosted content URLs,
+                allowing for different handling mechanisms based on the hosting platform.
+                - for web and android : 
+                1- If isHosted is true, the app opens the content URL using buildfire.navigation.openWindow(content.url, "_blank"),
+                the providers in hostedProviders array they host the PDF assets in their view.
+
+                2- If isHosted is false, the app opens the content URL using a Google Docs viewer 
+                */
+                const isHosted = hostedProviders.some(hostedString => content.url.includes(hostedString));      
+                
                 if (content && content.url) {
                     buildfire.getContext(function (err, context) {
                         if (context.device.platform == "web") {
