@@ -1,7 +1,7 @@
 {
   "author":"Buildfire"
-  ,"pluginName":"PDFViewer plugin"
-  ,"pluginDescription":"Incorporate PDF files in your app with ease."
+  ,"pluginName":"PDF Viewer"
+  ,"pluginDescription":"Integrate PDF files seamlessly into your app, enabling smooth access, viewing, and management of documents within your application."
   ,"supportEmail":"support@buildfire.com"
   ,"supportSite":"http://learn.appdocumentation.com/plugin-tutorials/pdf-viewer-plugin-tutorial"
   ,"pluginIcon":"icon.png"
