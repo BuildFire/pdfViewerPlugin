@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html ng-app="webviewPlugin">
 
 <head lang="en">
@@ -72,10 +72,7 @@
   <script>
     var webviewPluginApp = angular.module("webviewPlugin", []);
 
-    webviewPluginApp.controller("webviewPluginCtrl", [
-      "$scope",
-      "$log",
-      "$timeout",
+    webviewPluginApp.controller("webviewPluginCtrl", ["$scope", "$log", "$timeout",
       function ($scope, $log, $timeout) {
         var dataChanged = false;
         $scope.datastoreInitialized = false;
