@@ -36,11 +36,11 @@
     <div ng-if="urlValid || urlInValid" class="item clearfix row">
       <div ng-if="urlValid" class="main pull-right col-md-9">
         <div class="alert alert-success alert-sm text-center">
-          Url successfully validated
+          URL successfully validated
         </div>
       </div>
       <div ng-if="urlInValid" class="main pull-right col-md-9">
-        <div class="alert alert-danger alert-sm text-center">Invalid Url</div>
+        <div class="alert alert-danger alert-sm text-center">Invalid URL</div>
       </div>
     </div>
 
@@ -55,16 +55,11 @@
     </div>
     <div class="item clearfix row">
       <div class="note">
-        <strong>Important:</strong>
-        <p>
-          The file must be publicly accessible (anyone with the link can view
-          it without signing in).
+        <p class="margin-bottom-zero">The file must be publicly accessible so it can be loaded in the app.
+
+        <strong>Note: For Dropbox links, make sure the shared URL includes raw=1
+        (example: https://www.dropbox.com/.../file.pdf?raw=1).</strong>
         </p>
-        <p>
-          If you are using Dropbox, update your shared link to include raw=1
-          (for example: https://www.dropbox.com/.../file.pdf?raw=1).
-        </p>
-        <p class="margin-bottom-zero">This ensures the app can load the PDF correctly.</p>
       </div>
     </div>
   </div>
